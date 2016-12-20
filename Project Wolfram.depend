@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1482270046 source:c:\software\wolfram\src\main.cpp
+	<SDL.h>
+	<iostream>
+
