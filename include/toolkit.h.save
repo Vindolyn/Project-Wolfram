@@ -1,0 +1,9 @@
+#ifndef WOLFRAM_TOOLKIT_H
+#define WOLFRAM_TOOLKIT_H
+
+#include <SDL.h>
+
+void sleep(int ms);
+void output
+
+#endif //WOLFRAM_TOOLKIT_H
