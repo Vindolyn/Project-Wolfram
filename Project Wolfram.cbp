@@ -11,6 +11,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
@@ -31,7 +32,13 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/core_engine.h" />
+		<Unit filename="include/entity.h" />
+		<Unit filename="include/toolkit.h" />
+		<Unit filename="src/core_engine.cpp" />
+		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/toolkit.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
