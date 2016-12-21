@@ -3,12 +3,18 @@
 
 #include <SDL.h>
 #include <iostream>
+#include <vector>
+#include <iterator>
 
-using std::string;
-using std::cout;
-using std::endl;
+enum KeyPress
+{
+	KEY_W,
+	KEY_A,
+	KEY_S,
+	KEY_D
+};
 
 void sleep(int ms);
-void output(string s);
+void output(std::string s);
 
 #endif //WOLFRAM_TOOLKIT_H

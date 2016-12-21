@@ -1,7 +1,6 @@
 # depslib dependency file v1.0
-1482270046 source:c:\software\wolfram\src\main.cpp
-	<SDL.h>
-	<iostream>
+1482355459 source:c:\software\wolfram\src\main.cpp
+	"core_engine.h"
 
 1482304274 source:d:\files\software engineering\projects\wolfram\src\main.cpp
 	<SDL.h>
@@ -9,4 +8,14 @@
 
 1482306529 source:d:\files\software engineering\projects\wolfram\src\toolkit.cpp
 	"toolkit.h"
+
+1482356826 source:c:\software\wolfram\src\toolkit.cpp
+	"toolkit.h"
+
+1482356819 source:c:\software\wolfram\src\core_engine.cpp
+	"core_engine.h"
+	<sstream>
+
+1482356372 source:c:\software\wolfram\src\entity.cpp
+	"entity.h"
 
