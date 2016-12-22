@@ -1,8 +1,11 @@
 #ifndef WOLFRAM_DEFS_H
 #define WOLFRAM_DEFS_H
 
-ent_list world;
-SDL_Window *window;
-SDL_Renderer *screen;
+#include <SDL.h>
+
+extern SDL_Window *window;
+extern SDL_Renderer *screen;
+
+const int LOGIC_PER_SECOND = 100;
 
 #endif // WOLFRAM_DEFS_H

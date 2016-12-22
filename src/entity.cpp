@@ -1,8 +1,9 @@
 #include "entity.h"
+#include "toolkit.h"
 #include "defs.h"
-#include <SDL_image.h>
+#include "sprite.h"
 
-using std::string;
+ent_list world;
 
 Entity::Entity()
 {
@@ -11,33 +12,9 @@ Entity::Entity()
 	world.push_back(this);
 }
 
-Entity::Entity(double x=0, double y=0)
-{
-    loc.x = x;
-    loc.y = y;
-    world.push_back(this);
-}
-
-Entity::~Entity()
-{
-    SDL_DestroyTexture(image);
-    image = NULL;
-}
-
-bool Entity::setImage(string path)
-{
-	image = loadTexture(path);
-	if(image==NULL) return 0;
-	return 1;
-}
-
 void Entity::render()
 {
-	if(image==NULL) return;
-	SDL_Rect rect;
-	rect.x = loc.x;
-	rect.y = loc.y;
-	SDL_BlitScaled(image, NULL, screen, &rect);
+	sprite.render(loc);
 }
 
 void Entity::setLoc(double x, double y)
@@ -54,6 +31,16 @@ void Entity::shift(double x, double y)
 
 void Entity::setScale(double x, double y)
 {
-    scale.x = x;
-    scale.y = y;
+    sprite.scale.x = x;
+    sprite.scale.y = y;
+    if(sprite.scale.x<0) sprite.scale.x = 0;
+    if(sprite.scale.y<0) sprite.scale.y = 0;
+}
+
+void Entity::shiftScale(double x, double y)
+{
+	sprite.scale.x += x;
+	sprite.scale.y += y;
+	if(sprite.scale.x<0) sprite.scale.x = 0;
+    if(sprite.scale.y<0) sprite.scale.y = 0;
 }

@@ -25,7 +25,7 @@ public:
     void init();
     void render();
     void getEvents();
-    void clearScreen();
+    void logic();
 };
 
 #endif // WOLFRAM_CORE_ENGINE_H

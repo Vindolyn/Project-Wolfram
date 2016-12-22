@@ -35,10 +35,13 @@
 		<Unit filename="include/core_engine.h" />
 		<Unit filename="include/defs.h" />
 		<Unit filename="include/entity.h" />
+		<Unit filename="include/sprite.h" />
 		<Unit filename="include/toolkit.h" />
 		<Unit filename="src/core_engine.cpp" />
+		<Unit filename="src/defs.cpp" />
 		<Unit filename="src/entity.cpp" />
 		<Unit filename="src/main.cpp" />
+		<Unit filename="src/sprite.cpp" />
 		<Unit filename="src/toolkit.cpp" />
 		<Extensions>
 			<code_completion />
