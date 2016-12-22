@@ -1,7 +1,6 @@
 #ifndef WOLFRAM_CORE_ENGINE_H
 #define WOLFRAM_CORE_ENGINE_H
 
-#include "toolkit.h"
 #include "entity.h"
 
 /*
@@ -18,8 +17,6 @@ private:
 	SDL_Event event;
 public:
     //variables
-    SDL_Window *window;
-    SDL_Surface *screen;
     bool IS_RUNNING = true;
 
     //functions

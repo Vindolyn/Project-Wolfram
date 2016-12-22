@@ -2,11 +2,10 @@
 1482355459 source:c:\software\wolfram\src\main.cpp
 	"core_engine.h"
 
-1482304274 source:d:\files\software engineering\projects\wolfram\src\main.cpp
-	<SDL.h>
-	<iostream>
+1482376696 source:d:\files\software engineering\projects\wolfram\src\main.cpp
+	"core_engine.h"
 
-1482306529 source:d:\files\software engineering\projects\wolfram\src\toolkit.cpp
+1482381252 source:d:\files\software engineering\projects\wolfram\src\toolkit.cpp
 	"toolkit.h"
 
 1482356826 source:c:\software\wolfram\src\toolkit.cpp
@@ -18,4 +17,14 @@
 
 1482356372 source:c:\software\wolfram\src\entity.cpp
 	"entity.h"
+
+1482381447 source:d:\files\software engineering\projects\wolfram\src\core_engine.cpp
+	"core_engine.h"
+	<SDL.h>
+	<SDL_image.h>
+
+1482376550 source:d:\files\software engineering\projects\wolfram\src\entity.cpp
+	"entity.h"
+	"defs.h"
+	<SDL_image.h>
 

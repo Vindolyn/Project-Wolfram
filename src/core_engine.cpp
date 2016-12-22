@@ -1,10 +1,12 @@
 #include "core_engine.h"
+#include <SDL.h>
+#include <SDL_image.h>
 
-#include <sstream>
-using std::stringstream;
 using std::string;
 
 Entity player;
+extern SDL_Window *window;
+extern SDL_Renderer *screen;
 
 bool MOVE_UP=false, MOVE_DOWN=false, MOVE_LEFT=false, MOVE_RIGHT=false;
 
@@ -15,19 +17,30 @@ Engine::Engine(string path, int width, int height)
 		output("[!!!] Failed to initialize SDL.");
 		return;
 	}
-
+    if(!IMG_Init(IMG_INIT_PNG))
+    {
+        output("[!!!] Failed to initialize SDL_image.");
+        return;
+    }
     window = SDL_CreateWindow(path.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     if(window==NULL)
 	{
 		output("[!!!] Failed to initialize window.");
 		return;
 	}
-	screen = SDL_GetWindowSurface(window);
+	screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if(screen==NULL)
+    {
+        output("[!!!] Failed to initialize renderer.");
+        return;
+    }
+    SDL_SetRenderDrawColor(screen, 0x00,0x00,0x00,0xff);
 }
 Engine::~Engine()
 {
-	SDL_FreeSurface(screen);
+	SDL_DestroyRenderer(screen);
 	SDL_DestroyWindow(window);
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -38,11 +51,17 @@ void Engine::init()
 		//Get events
 		getEvents();
 		//Do logic
-		double speed = 2.5;
-		if(MOVE_UP) player.shift(0, -speed);
-		if(MOVE_DOWN) player.shift(0, speed);
-		if(MOVE_LEFT) player.shift(-speed, 0);
-		if(MOVE_RIGHT) player.shift(speed, 0);
+		double speed = 0.1;
+		if(MOVE_LEFT)
+        {
+            player.scale.x -= speed;
+            player.scale.y -= speed;
+        }
+		if(MOVE_RIGHT)
+        {
+            player.scale.x += speed;
+            player.scale.y += speed;
+        }
 		//Render
 		render();
 	}
@@ -54,9 +73,9 @@ void Engine::render()
 	int len = world.size();
 	for(int i=0; i<len; i++)
 	{
-		world[i]->render(this->screen);
+		world[i]->render();
 	}
-	SDL_UpdateWindowSurface(this->window);
+	SDL_UpdateWindowSurface(window);
 	sleep(10);
 }
 
@@ -85,6 +104,9 @@ void Engine::getEvents()
 			case SDLK_d:
 				MOVE_RIGHT = true;
 				break;
+			case SDLK_ESCAPE:
+                IS_RUNNING = false;
+                break;
 			}
 		}
 		else if(event.type==SDL_KEYUP)
@@ -107,4 +129,4 @@ void Engine::getEvents()
 	}
 }
 
-void Engine::clearScreen() {SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));}
+void Engine::clearScreen() {return;}

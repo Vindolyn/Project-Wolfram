@@ -8,7 +8,7 @@ const int SCREEN_HEIGHT = 720;
 int main(int argc, char *args[])
 {
 	Engine engine("Project Wolfram", SCREEN_WIDTH, SCREEN_HEIGHT);
-	player.setImage("assets/ahri.bmp");
+	player.setImage("assets/vixidoodle.png");
 	engine.init();
     return 0;
 }
