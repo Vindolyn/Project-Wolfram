@@ -1,8 +1,9 @@
 #include "entity.h"
+#include "toolkit.h"
 #include "defs.h"
-#include <SDL_image.h>
+#include "sprite.h"
 
-using std::string;
+ent_list world;
 
 Entity::Entity()
 {
@@ -11,35 +12,38 @@ Entity::Entity()
 	world.push_back(this);
 }
 
-Entity::Entity(double x=0, double y=0)
-{
-    loc.x = x;
-    loc.y = y;
-    world.push_back(this);
-}
-
-Entity::~Entity()
-{
-    SDL_DestroyTexture(image);
-    image = NULL;
-}
-
-bool Entity::setImage(string path)
-{
-	image = loadTexture(path); 
-	if(image==NULL) return 0;
-	return 1;
-}
-
 void Entity::render()
 {
-	if(image==NULL) return;
+    //Setup render positions
 	SDL_Rect rect;
-	rect.x = loc.x;
-	rect.y = loc.y;
-	rect.w = image->w*scale.x;
-	rect.h = image->h*scale.y;
-	SDL_BlitScaled(image, NULL, screen, &rect);
+	rect.x = loc.x+(sprite.offset.x*scale.x);
+	rect.y = loc.y+(sprite.offset.y*scale.y);
+
+	//If the sprite has an animation delay, consider it having multiple frames
+	if(sprite.delay)
+	{
+		while(animation_timer >= sprite.delay)
+		{
+			animation_timer -= sprite.delay;
+			animation_frame++;
+			if(animation_frame>=sprite.frame_count) animation_frame = 0;
+		}
+		SDL_Rect curframe = sprite.frame[animation_frame];
+		rect.w = sprite.frame_w*scale.x;
+		rect.h = sprite.frame_h*scale.y;
+
+		SDL_RenderCopy(screen, sprite.sheet, &curframe, &rect);
+		animation_timer += 1000/LOGIC_PER_SECOND;
+	}
+	else
+	{
+		SDL_QueryTexture(sprite.sheet, NULL, NULL, &rect.w, &rect.h);
+		rect.w *= scale.x;
+		rect.h *= scale.y;
+
+		if()
+		SDL_RenderCopy(screen, sprite.sheet, NULL, &rect);
+	}
 }
 
 void Entity::setLoc(double x, double y)
@@ -58,4 +62,14 @@ void Entity::setScale(double x, double y)
 {
     scale.x = x;
     scale.y = y;
+    if(scale.x<0) scale.x = 0;
+    if(scale.y<0) scale.y = 0;
+}
+
+void Entity::shiftScale(double x, double y)
+{
+    scale.x += x;
+	scale.y += y;
+	if(scale.x<0) scale.x = 0;
+    if(scale.y<0) scale.y = 0;
 }

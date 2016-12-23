@@ -14,24 +14,24 @@ Engine::Engine(string path, int width, int height)
 {
 	if(SDL_Init(SDL_INIT_VIDEO)<0)
 	{
-		output("[!!!] Failed to initialize SDL.");
+		SDL_Crash("Failed to initialize SDL.");
 		return;
 	}
     if(!IMG_Init(IMG_INIT_PNG))
     {
-        output("[!!!] Failed to initialize SDL_image.");
+        SDL_Crash("Failed to initialize SDL_image.");
         return;
     }
     window = SDL_CreateWindow(path.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     if(window==NULL)
 	{
-		output("[!!!] Failed to initialize window.");
+		SDL_Crash("Failed to initialize window.");
 		return;
 	}
-	screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if(screen==NULL)
     {
-        output("[!!!] Failed to initialize renderer.");
+        SDL_Crash("Failed to initialize renderer.");
         return;
     }
 }
@@ -121,6 +121,13 @@ void Engine::getEvents()
 void Engine::logic()
 {
 	double speed = 0.25;
+	int delay =1;
 	if(MOVE_LEFT) {player.shiftScale(-speed,-speed);}
 	if(MOVE_RIGHT) {player.shiftScale(speed,speed);}
+	if(MOVE_UP) player.sprite.delay += delay;
+	if(MOVE_DOWN)
+    {
+        if(player.sprite.delay-delay <= 0) player.sprite.delay = 0;
+        else player.sprite.delay -= delay;
+    }
 }

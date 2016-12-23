@@ -1,12 +1,12 @@
-#include "core_engine.h"
-#include <SDL.h>
 #include <SDL_image.h>
+#include "core_engine.h"
+#include "toolkit.h"
+#include "entity.h"
+#include "defs.h"
 
 using std::string;
 
 Entity player;
-extern SDL_Window *window;
-extern SDL_Surface *screen;
 
 bool MOVE_UP=false, MOVE_DOWN=false, MOVE_LEFT=false, MOVE_RIGHT=false;
 
@@ -14,30 +14,30 @@ Engine::Engine(string path, int width, int height)
 {
 	if(SDL_Init(SDL_INIT_VIDEO)<0)
 	{
-		output("[!!!] Failed to initialize SDL.");
+		SDL_Crash("Failed to initialize SDL.");
 		return;
 	}
     if(!IMG_Init(IMG_INIT_PNG))
     {
-        output("[!!!] Failed to initialize SDL_image.");
+        SDL_Crash("Failed to initialize SDL_image.");
         return;
     }
     window = SDL_CreateWindow(path.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     if(window==NULL)
 	{
-		output("[!!!] Failed to initialize window.");
+		SDL_Crash("Failed to initialize window.");
 		return;
 	}
-	screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if(renderer==NULL)
+	screen = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if(screen==NULL)
     {
-        output("[!!!] Failed to initialize renderer.");
+        SDL_Crash("Failed to initialize renderer.");
         return;
     }
 }
 Engine::~Engine()
 {
-	SDL_FreeSurface(screen);
+	SDL_DestroyRenderer(screen);
 	SDL_DestroyWindow(window);
 	IMG_Quit();
 	SDL_Quit();
@@ -47,35 +47,25 @@ void Engine::init()
 {
 	while(IS_RUNNING)
 	{
-		//Get events
 		getEvents();
-		//Do logic
-		double speed = 0.1;
-		if(MOVE_LEFT)
-        {
-            player.scale.x -= speed;
-            player.scale.y -= speed;
-        }
-		if(MOVE_RIGHT)
-        {
-            player.scale.x += speed;
-            player.scale.y += speed;
-        }
-		//Render
+		logic();
 		render();
 	}
 }
 
 void Engine::render()
 {
-	clearScreen();
+	SDL_SetRenderDrawColor(screen, 0, 0, 0, 255);
+	SDL_RenderClear(screen);
+
+	//render contents of world;
 	int len = world.size();
 	for(int i=0; i<len; i++)
 	{
 		world[i]->render();
 	}
-	SDL_UpdateWindowSurface(window);
-	sleep(10);
+	SDL_RenderPresent(screen);
+	sleep(1000/LOGIC_PER_SECOND);
 }
 
 void Engine::getEvents()
@@ -128,4 +118,11 @@ void Engine::getEvents()
 	}
 }
 
-void Engine::clearScreen() {SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));}
+void Engine::logic()
+{
+	double speed = 0.25;
+	if(MOVE_LEFT) {player.shiftScale(-speed,-speed);}
+	if(MOVE_RIGHT) {player.shiftScale(speed,speed);}
+	if(MOVE_UP) player.sprite.delay += 1;
+	if()
+}

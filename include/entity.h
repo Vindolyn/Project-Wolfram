@@ -18,7 +18,10 @@ class Entity
 public:
     //variables
     coord loc;
+    coord scale;
     Sprite sprite;
+    unsigned int animation_timer = 0;
+    unsigned int animation_frame = 0;
 
     //functions
     Entity();

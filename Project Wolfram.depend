@@ -2,11 +2,15 @@
 1482441592 source:c:\software\wolfram\src\main.cpp
 	"core_engine.h"
 
-1482376696 source:d:\files\software engineering\projects\wolfram\src\main.cpp
+1482472734 source:d:\files\software engineering\projects\wolfram\src\main.cpp
 	"core_engine.h"
 
-1482381252 source:d:\files\software engineering\projects\wolfram\src\toolkit.cpp
+1482464891 source:d:\files\software engineering\projects\wolfram\src\toolkit.cpp
 	"toolkit.h"
+	<vector>
+	<SDL_image.h>
+	<sstream>
+	"defs.h"
 
 1482441222 source:c:\software\wolfram\src\toolkit.cpp
 	"toolkit.h"
@@ -28,15 +32,18 @@
 	"defs.h"
 	"sprite.h"
 
-1482381447 source:d:\files\software engineering\projects\wolfram\src\core_engine.cpp
-	"core_engine.h"
-	<SDL.h>
+1482472931 source:d:\files\software engineering\projects\wolfram\src\core_engine.cpp
 	<SDL_image.h>
-
-1482376550 source:d:\files\software engineering\projects\wolfram\src\entity.cpp
+	"core_engine.h"
+	"toolkit.h"
 	"entity.h"
 	"defs.h"
-	<SDL_image.h>
+
+1482472670 source:d:\files\software engineering\projects\wolfram\src\entity.cpp
+	"entity.h"
+	"toolkit.h"
+	"defs.h"
+	"sprite.h"
 
 1482422085 source:c:\software\wolfram\src\defs.cpp
 	"defs.h"
@@ -45,4 +52,11 @@
 	"sprite.h"
 	"defs.h"
 	<sstream>
+
+1482452414 source:d:\files\software engineering\projects\wolfram\src\defs.cpp
+	"defs.h"
+
+1482471586 source:d:\files\software engineering\projects\wolfram\src\sprite.cpp
+	"sprite.h"
+	"defs.h"
 

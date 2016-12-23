@@ -12,7 +12,7 @@ using std::stringstream;
 
 void sleep(int ms) {SDL_Delay(ms);}
 void output(string s) {cout << s << endl;}
-void SDL_Crash(string msg) {output("[!!!] "+msg+" :: "+string(SDL_GetError()));}
+void SDL_Crash(string msg) {output("[!!!] "+msg+" :: "+"\n"+string(SDL_GetError()));}
 SDL_Texture *loadTexture(std::string path)
 {
     return SDL_CreateTextureFromSurface(screen, IMG_Load(path.c_str()));
@@ -20,16 +20,9 @@ SDL_Texture *loadTexture(std::string path)
 
 void drawRect(SDL_Rect *rect, int drawset, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)
 {
-	if(drawset==FILL)
-	{
-		SDL_SetRenderDrawColor(screen, red, green, blue, alpha);
-		SDL_RenderFillRect(screen, rect);
-	}
-	else if(drawset==OUTLINE)
-	{
-		SDL_SetRenderDrawColor(screen, red, green, blue, alpha);
-		SDL_RenderDrawRect(screen, rect);
-	}
+    SDL_SetRenderDrawColor(screen, red, green, blue, alpha);
+	if(drawset==FILL) SDL_RenderFillRect(screen, rect);
+	else if(drawset==OUTLINE) SDL_RenderDrawRect(screen, rect);
 }
 
 void drawLine(int x_start, int y_start, int x_end, int y_end, Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha)

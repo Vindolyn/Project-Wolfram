@@ -18,7 +18,7 @@ public:
 	int frame_w = 0;
 	int frame_h = 0;
 	unsigned int frame_count = 0;
-	unsigned int delay = 0;
+	unsigned int animation_delay = 100;
 	std::vector<SDL_Rect> frame;
 	SDL_Texture *sheet;
 	coord offset;
@@ -27,7 +27,7 @@ public:
 	Sprite(std::string path);
 	~Sprite();
 	void loadSheet(std::string path);
-	void pushFrame(int x, int y, int w, int h);
+	void setFrame(int x, int y, int w, int h, int index);
 	void calcFrames(int x, int y, int w, int h, int flag);
 	void setFrameSize(int w, int h);
 	void setFrameCount(int f);

@@ -51,29 +51,27 @@ void Sprite::calcFrames(int x, int y, int w, int h, int flag)
 		if(flag==HORIZONTAL)
 		{
 			int pos = x;
-			for(unsigned int i=0; i<frame_count; i++)
+			for(int i=0; i<frame_count; i++)
 			{
-				pushFrame(pos, y, w, h);
+				SDL_Rect rect = {pos, y, w, h};
+				frame.push_back(rect);
 				pos+=w;
 			}
 		}
 		else if(flag==VERTICAL)
 		{
 			int pos = y;
-			for(unsigned int i=0; i<frame_count; i++)
+			for(int i=0; i<frame_count; i++)
 			{
-				pushFrame(x, pos, w, h);
+				SDL_Rect rect = {x, pos, w, h};
+				frame.push_back(rect);
 				pos+=h;
 			}
 		}
 	}
 }
 
-void Sprite::pushFrame(int x, int y, int w, int h)
-{
-    SDL_Rect rect = {x, y, w, h};
-    frame.push_back(rect);
-}
+
 
 void Sprite::setFrameSize(int h, int w)
 {
