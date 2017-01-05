@@ -1,6 +1,8 @@
 #include "sprite.h"
 #include "defs.h"
 
+Texture_map texture_heap;
+
 Sprite::Sprite(){}
 
 Sprite::Sprite(std::string path)
@@ -14,9 +16,19 @@ Sprite::~Sprite()
 	sheet = NULL;
 }
 
-void Sprite::loadSheet(std::string path)
+void Sprite::loadSheet(std::string name)
 {
-	sheet = loadTexture(path);
+    Texture_iter it = texture_heap.find(name);
+    if(it != texture_heap.end())
+    {
+        if(!it->second)
+        {
+            output("There's nothing here");
+            return;
+        }
+        sheet = it->second;
+    }
+    else {output("Could not find texture: "+name);}
 }
 
 void Sprite::calcFrames(int x, int y, int w, int h, int flag)

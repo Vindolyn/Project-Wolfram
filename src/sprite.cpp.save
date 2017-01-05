@@ -1,6 +1,8 @@
 #include "sprite.h"
 #include "defs.h"
 
+Texture_map texture_heap;
+
 Sprite::Sprite(){}
 
 Sprite::Sprite(std::string path)
@@ -14,9 +16,14 @@ Sprite::~Sprite()
 	sheet = NULL;
 }
 
-void Sprite::loadSheet(std::string path)
+void Sprite::loadSheet(std::string name)
 {
-	sheet = loadTexture(path);
+    std::unordered_map<std::string, SDL_Texture*>::iterator it = texture_heap.find(name);
+    if(it != texture_heap.end())
+    {
+        sheet = it->second;
+    }
+    else {output("Could not find texture: "+name);}
 }
 
 void Sprite::calcFrames(int x, int y, int w, int h, int flag)
@@ -51,27 +58,29 @@ void Sprite::calcFrames(int x, int y, int w, int h, int flag)
 		if(flag==HORIZONTAL)
 		{
 			int pos = x;
-			for(int i=0; i<frame_count; i++)
+			for(unsigned int i=0; i<frame_count; i++)
 			{
-				SDL_Rect rect = {pos, y, w, h};
-				frame.push_back(rect);
+				pushFrame(pos, y, w, h);
 				pos+=w;
 			}
 		}
 		else if(flag==VERTICAL)
 		{
 			int pos = y;
-			for(int i=0; i<frame_count; i++)
+			for(unsigned int i=0; i<frame_count; i++)
 			{
-				SDL_Rect rect = {x, pos, w, h};
-				frame.push_back(rect);
+				pushFrame(x, pos, w, h);
 				pos+=h;
 			}
 		}
 	}
 }
 
-
+void Sprite::pushFrame(int x, int y, int w, int h)
+{
+    SDL_Rect rect = {x, y, w, h};
+    frame.push_back(rect);
+}
 
 void Sprite::setFrameSize(int h, int w)
 {

@@ -3,6 +3,7 @@
 #include <SDL_image.h>
 #include <sstream>
 #include "defs.h"
+#include <cstdlib>
 
 using std::string;
 using std::cout;
@@ -13,7 +14,7 @@ using std::stringstream;
 void sleep(int ms) {SDL_Delay(ms);}
 void output(string s) {cout << s << endl;}
 void SDL_Crash(string msg) {output("[!!!] "+msg+" :: "+"\n"+string(SDL_GetError()));}
-SDL_Texture *loadTexture(std::string path)
+SDL_Texture* loadTexture(std::string path)
 {
     return SDL_CreateTextureFromSurface(screen, IMG_Load(path.c_str()));
 }
@@ -42,4 +43,9 @@ string numToString(int num)
 	stringstream s;
 	s << num;
 	return s.str();
+}
+
+int rand(int mn, int mx)
+{
+    return std::rand()%(mx-mn)+mn;
 }

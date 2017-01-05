@@ -2,7 +2,8 @@
 #define WOLFRAM_SPRITE_H
 
 #include <vector>
-#include <SDL.h>
+#include <memory>
+#include <unordered_map>
 #include <SDL_image.h>
 #include "toolkit.h"
 
@@ -20,7 +21,7 @@ public:
 	unsigned int frame_count = 0;
 	unsigned int delay = 0;
 	std::vector<SDL_Rect> frame;
-	SDL_Texture *sheet;
+	SDL_Texture* sheet;
 	coord offset;
 
 	Sprite();
@@ -33,5 +34,10 @@ public:
 	void setFrameCount(int f);
 	void clearFrames();
 };
+
+typedef std::shared_ptr<Sprite> Sprite_ptr;
+typedef std::unordered_map<std::string, SDL_Texture*> Texture_map;
+typedef std::unordered_map<std::string, SDL_Texture*>::iterator Texture_iter;
+extern Texture_map texture_heap;
 
 #endif // WOLFRAM_SPRITE_H

@@ -26,6 +26,8 @@ public:
     void render();
     void getEvents();
     void logic();
+    void loadAssets();
+    void destroy();
 };
 
 #endif // WOLFRAM_CORE_ENGINE_H

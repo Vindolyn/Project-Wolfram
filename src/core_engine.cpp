@@ -1,12 +1,8 @@
-#include <SDL_image.h>
+#include <fstream>
 #include "core_engine.h"
-#include "toolkit.h"
-#include "entity.h"
 #include "defs.h"
 
 using std::string;
-
-Entity player;
 
 bool MOVE_UP=false, MOVE_DOWN=false, MOVE_LEFT=false, MOVE_RIGHT=false;
 
@@ -34,6 +30,7 @@ Engine::Engine(string path, int width, int height)
         SDL_Crash("Failed to initialize renderer.");
         return;
     }
+    loadAssets();
 }
 Engine::~Engine()
 {
@@ -51,6 +48,15 @@ void Engine::init()
 		logic();
 		render();
 	}
+	destroy();
+}
+
+void Engine::destroy()
+{
+    for(unsigned int i=0; i<world.size(); ++i)
+    {
+        delete world[i];
+    }
 }
 
 void Engine::render()
@@ -59,13 +65,13 @@ void Engine::render()
 	SDL_RenderClear(screen);
 
 	//render contents of world;
-	int len = world.size();
-	for(int i=0; i<len; i++)
+	unsigned int len = world.size();
+	for(unsigned int i=0; i<len; i++)
 	{
 		world[i]->render();
 	}
 	SDL_RenderPresent(screen);
-	sleep(1000/LOGIC_PER_SECOND);
+	//sleep(1000/LOGIC_PER_SECOND);
 }
 
 void Engine::getEvents()
@@ -120,14 +126,19 @@ void Engine::getEvents()
 
 void Engine::logic()
 {
-	double speed = 0.25;
-	int delay =1;
-	if(MOVE_LEFT) {player.shiftScale(-speed,-speed);}
-	if(MOVE_RIGHT) {player.shiftScale(speed,speed);}
-	if(MOVE_UP) player.sprite.delay += delay;
-	if(MOVE_DOWN)
+
+}
+
+void Engine::loadAssets()
+{
+    std::ifstream file("assets/textures.watx");
+    std::string name, path;
+    SDL_Texture* tex;
+    while(file >> name >> path)
     {
-        if(player.sprite.delay-delay <= 0) player.sprite.delay = 0;
-        else player.sprite.delay -= delay;
+        tex = loadTexture(path);
+        texture_heap.insert({name, tex});
+        tex = NULL;
     }
+    SDL_DestroyTexture(tex);
 }

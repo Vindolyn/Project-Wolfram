@@ -1,0 +1,14 @@
+#ifndef WOLFRAM_TEXTURE_H
+#define WOLFRAM_TEXTURE_H
+
+#include <map>
+#include <SDL
+
+class Texture
+{
+
+};
+
+typedef std::unordered_map<std::string, Texture*> 
+
+#endif // WOLFRAM_TEXTURE_H

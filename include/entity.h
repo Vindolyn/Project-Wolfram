@@ -1,17 +1,7 @@
 #ifndef WOLFRAM_ENTITY_H
 #define WOLFRAM_ENTITY_H
 
-#include <SDL.h>
-#include <iostream>
-#include <vector>
 #include "sprite.h"
-#include "toolkit.h"
-
-enum layers
-{
-
-	HUD_LAYER //goes above everything
-};
 
 class Entity
 {
@@ -19,7 +9,7 @@ public:
     //variables
     coord loc;
     coord scale;
-    Sprite sprite;
+    Sprite_ptr sprite;
     unsigned int animation_timer = 0;
     unsigned int animation_frame = 0;
 
