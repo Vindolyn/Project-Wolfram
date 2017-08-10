@@ -1,3 +1,5 @@
 *.layout
 *.o
 *.out
+Project Wolfram.depend
+bin/Debug/Project Wolfram.exe
