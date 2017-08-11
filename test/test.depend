@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1502420914 source:d:\files\software engineering\projects\project wolfram\test\main.cpp
+	<iostream>
+	"engine.h"
+
+1502419571 d:\files\software engineering\projects\project wolfram\engine\include\engine.h
+	<iostream>
+

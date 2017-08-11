@@ -1,5 +1,2 @@
-*.layout
-*.o
-*.out
-Project Wolfram.depend
-bin/Debug/Project Wolfram.exe
+test/test.cbp.save
+engine/engine.cbp.save
